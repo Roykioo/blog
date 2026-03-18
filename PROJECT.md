@@ -7,7 +7,7 @@
 
 ## 域名
 - 域名: roykioo.top
-- 状态: 实名认证审核中
+- 状态: 已实名，DNS 待配置
 - NS 待修改为: ns1.alidns.com, ns2.alidns.net
 
 ## 网站部署路径
