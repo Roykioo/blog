@@ -1,0 +1,24 @@
+name: Deploy Blog
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to server
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: ./
+          remote_path: /var/www/webdoc
+          remote_host: 8.153.207.31
+          remote_user: root
+          remote_key: ${{ secrets.DEPLOY_KEY }}

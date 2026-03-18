@@ -1,0 +1,16 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  only:
+    - main
+  script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan 8.153.207.31 >> ~/.ssh/known_hosts
+    - rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" ./ root@8.153.207.31:/var/www/webdoc/
+  tags:
+    - docker

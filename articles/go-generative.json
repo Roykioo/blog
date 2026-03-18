@@ -1,0 +1,65 @@
+{
+  "id": "go-generative",
+  "tag": "GO / CREATIVE",
+  "title": "MEMENTOS的生成艺术管道",
+  "excerpt": "探索使用Go的image包创造独特的认知扭曲视觉效果，服务端生成惊艳的阴影世界艺术。",
+  "date": "2026-02-15",
+  "readTime": "12 MIN",
+  "content": [
+    {
+      "type": "heading",
+      "text": "引言：认知扭曲的视觉效果"
+    },
+    {
+      "type": "paragraph",
+      "text": "生成艺术通常在浏览器端使用JavaScript或Processing来实现。但Go语言凭借其卓越的计算性能和丰富的图像处理库，同样可以成为生成艺术的强大工具。"
+    },
+    {
+      "type": "paragraph",
+      "text": "让我们探索如何使用Go的image包在服务端创建惊艳的Mementos风格视觉效果。"
+    },
+    {
+      "type": "heading",
+      "text": "基础：GO的IMAGE包"
+    },
+    {
+      "type": "paragraph",
+      "text": "Go的标准库提供了强大的图像处理功能。image包定义了基本的图像类型，而image/draw和image/color包提供了绘图和颜色处理能力。"
+    },
+    {
+      "type": "code",
+      "title": "mandelbrot.go - COGNITIVE DISTORTION",
+      "language": "go",
+      "code": "package main\n\nimport (\n    \"image\"\n    \"image/png\"\n    \"math/cmplx\"\n    \"os\"\n)\n\n// Mandelbrot - 分形认知扭曲\nfunc mandelbrot(maxIter int) image.Image {\n    bounds := image.Rect(int(0), int(0), 800, 600)\n    img := image.NewRGBA(bounds)\n\n    for py := 0; py < bounds.Dy(); py++ {\n        for px := 0; px < bounds.Dx(); px++ {\n            x0 := float64(px)/800*3.5 - 2.5\n            y0 := float64(py)/600*2.0 - 1.0\n            x, y := 0.0, 0.0\n            iter := 0\n\n            for x*x+y*y <= 4 && iter < maxIter {\n                xtemp := x*x - y*y + x0\n                y = 2*x*y + y0\n                x = xtemp\n                iter++\n            }\n\n            // Persona风格红色调\n            img.Set(px, py, color.RGBA{217, 20, 20, 255})\n        }\n    }\n    return img\n}\n\nfunc main() {\n    img := mandelbrot(255)\n    f, _ := os.Create(\"mandelbrot.png\")\n    png.Encode(f, img)\n}"
+    },
+    {
+      "type": "heading",
+      "text": "PERLIN噪声与程序化纹理"
+    },
+    {
+      "type": "paragraph",
+      "text": "Perlin噪声是生成艺术中最常用的算法之一。它可以创建自然的随机纹理，广泛应用于地形生成、云彩模拟等领域——创造出你自己的\"认知空间\"。"
+    },
+    {
+      "type": "heading",
+      "text": "GO VS JAVASCRIPT：性能对比"
+    },
+    {
+      "type": "list",
+      "items": [
+        "<strong>计算密集型任务</strong>：Go在原始计算性能上通常比JavaScript快2-5倍",
+        "<strong>内存使用</strong>：Go的内存管理更加高效，适合大规模图像生成",
+        "<strong>并发处理</strong>：Go可以轻松并行化多个图像生成任务",
+        "<strong>生态系统</strong>：JavaScript在浏览器端有更丰富的可视化库"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "结论"
+    },
+    {
+      "type": "paragraph",
+      "text": "Go不仅是一门优秀的服务端语言，同样是生成艺术的强大工具。它的性能优势使其特别适合计算密集型的视觉任务。结合Web服务，你可以创建实时的生成艺术API，让用户生成独特的\"认知扭曲\"艺术品。"
+    }
+  ]
+}
